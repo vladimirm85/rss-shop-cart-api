@@ -12,7 +12,7 @@ FROM deps AS build
 COPY * ./
 RUN npm run build
 
-# Deploy
+# Application
 FROM node:14-alpine
 
 WORKDIR /app
@@ -22,7 +22,6 @@ RUN npm install --only=production && npm cache clean --force
 
 COPY --from=build /app/dist ./dist
 
-# Application
 USER node
 ENV PORT=8080
 EXPOSE 8080
